@@ -11,3 +11,7 @@ document.body.innerText.trim().split("\n").map(l=>l.trim().split(" ").map(Number
 document.body.innerText.trim().match(/mul\(\d+,\d+\)/g).reduce((a,c)=>a+c.match(/\d+/g).map(Number).reduce((a2,c2)=>a2*c2,1),0)
 // 3.2
 document.body.innerText.trim().match(/(mul\(\d+,\d+\)|do\(\)|don't\(\))/g).reduce((a,c)=>[a[1]?a[0]+(c.startsWith("mul")?c.match(/\d+/g).map(Number).reduce((a2,c2)=>a2*c2,1):0):a[0],c.startsWith("do")?!c.includes("n"):a[1]],[0,true])[0]
+// 4.1
+[[[1,0],[2,0],[3,0]],[[0,1],[0,2],[0,3]],[[1,1],[2,2],[3,3]],[[1,-1],[2,-2],[3,-3]]].reduce((ta,d)=>ta+document.body.innerText.trim().split("\n").map(l=>l.trim().split("")).reduce((ra,r,ri,g)=>ra+r.reduce((ca,c,ci)=>ca+["XMAS","SAMX"].includes([[0,0],...d].map(([dr,dc])=>g[ri+dr]?.[ci+dc]??".").join("")),0),0),0)
+// 4.2
+document.body.innerText.trim().split("\n").map(l=>l.trim().split("")).reduce((ra,r,ri,g)=>ra+r.reduce((ca,c,ci)=>ca+(c!=="A"?0:[[[-1,-1],[1,1]],[[-1,1],[1,-1]]].map((ds)=>ds.map(([dr,dc])=>g[ri+dr]?.[ci+dc]??".").sort().join("")).join("")==="MSMS"),0),0) 

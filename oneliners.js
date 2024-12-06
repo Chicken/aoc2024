@@ -15,3 +15,7 @@ document.body.innerText.trim().match(/(mul\(\d+,\d+\)|do\(\)|don't\(\))/g).reduc
 [[[1,0],[2,0],[3,0]],[[0,1],[0,2],[0,3]],[[1,1],[2,2],[3,3]],[[1,-1],[2,-2],[3,-3]]].reduce((ta,d)=>ta+document.body.innerText.trim().split("\n").map(l=>l.trim().split("")).reduce((ra,r,ri,g)=>ra+r.reduce((ca,c,ci)=>ca+["XMAS","SAMX"].includes([[0,0],...d].map(([dr,dc])=>g[ri+dr]?.[ci+dc]??".").join("")),0),0),0)
 // 4.2
 document.body.innerText.trim().split("\n").map(l=>l.trim().split("")).reduce((ra,r,ri,g)=>ra+r.reduce((ca,c,ci)=>ca+(c!=="A"?0:[[[-1,-1],[1,1]],[[-1,1],[1,-1]]].map((ds)=>ds.map(([dr,dc])=>g[ri+dr]?.[ci+dc]??".").sort().join("")).join("")==="MSMS"),0),0) 
+// 5.1
+document.body.innerText.trim().split("\n\n").map((h,i)=>h.trim().split("\n").map(l => l.trim().split(i?",":"|"))).map((h,i,hs) =>!i?0:h.reduce((ha,ps)=>ha+(ps.every((p,pi)=>hs[0].filter(r=>r[1]==p).map(r=>r[0]).filter(d=>ps.includes(d)).every(d => ps.slice(0,pi).includes(d)))?parseInt(ps[Math.floor(ps.length/2)]):0),0))[1]
+// 5.2
+document.body.innerText.trim().split("\n\n").map((h,i)=>h.trim().split("\n").map(l=>l.trim().split(i?",":"|"))).map((h,i,hs)=>!i?0:h.filter(ps=>!ps.every((p,pi)=>hs[0].filter(r=>r[1]==p).map(r=>r[0]).filter(d=>ps.includes(d)).every(d => ps.slice(0,pi).includes(d)))).map(ps=>parseInt(ps.sort((a,b)=>hs[0].find(r=>r[0]==a&&r[1]==b)?-1:1)[Math.floor(ps.length/2)])).reduce((a,c)=>a+c,0))[1]

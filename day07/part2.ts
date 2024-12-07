@@ -12,7 +12,7 @@ for (const [total, numbers] of input) {
         for (let j = 0; j < opCount; j++) {
             if (ops[j] === 0) calc += numbers[j + 1];
             else if (ops[j] === 1) calc *= numbers[j + 1];
-            else if (ops[j] === 2) calc = parseInt(calc.toString() + numbers[j + 1].toString());
+            else if (ops[j] === 2) calc = calc * 10 ** Math.ceil(Math.log10(numbers[j + 1] + 1)) + numbers[j + 1];
         }
         if (calc === total) {
             sum += total;

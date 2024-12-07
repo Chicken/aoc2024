@@ -24,6 +24,6 @@ document.body.innerText.trim().split("\n\n").map((h,i)=>h.trim().split("\n").map
 // 6.2
 // while loop skill issue
 // 7.1
-document.body.innerText.trim().split("\n").map(l=>l.trim().split(": ").map((v, i) =>!i?Number(v):v.split(" ").map(Number))).reduce((a,[t,ns])=>a+(Array(2**(ns.length-1)).fill().some((_,i)=>Array(ns.length-1).fill().map((_,j)=>Math.floor(i/(2**j))%2).reduce((ca,o,j)=>o?ca+ns[j+1]:ca*ns[j+1],ns[0])===t)&&t),0)
+document.body.innerText.trim().split("\n").map(l=>l.trim().split(": ").map((v,i)=>!i?Number(v):v.split(" ").map(Number))).reduce((a,[t,ns])=>a+(Array(2**(ns.length-1)).fill().some((_,i)=>Array(ns.length-1).fill().map((_,j)=>Math.floor(i/(2**j))%2).reduce((ca,o,j)=>o?ca+ns[j+1]:ca*ns[j+1],ns[0])===t)&&t),0)
 // 7.2
-document.body.innerText.trim().split("\n").map(l=>l.trim().split(": ").map((v, i) =>!i?Number(v):v.split(" ").map(Number))).reduce((a,[t,ns])=>a+(Array(3**(ns.length-1)).fill().some((_,i)=>Array(ns.length-1).fill().map((_,j)=>Math.floor(i/(3**j))%3).reduce((ca,o,j)=>o===0?ca+ns[j+1]:(o===1?ca*ns[j+1]:parseInt(ca.toString()+ns[j+1].toString())),ns[0])===t)&&t),0) 
+document.body.innerText.trim().split("\n").map(l=>l.trim().split(": ").map((v,i) =>!i?Number(v):v.split(" ").map(Number))).reduce((a,[t,ns])=>a+(Array(3**(ns.length-1)).fill().some((_,i)=>Array(ns.length-1).fill().map((_,j)=>Math.floor(i/(3**j))%3).reduce((ca,o,j)=>o===0?ca+ns[j+1]:(o===1?ca*ns[j+1]:ca*10**Math.ceil(Math.log10(ns[j+1]+1))+ns[j+1]),ns[0])===t)&&t),0)

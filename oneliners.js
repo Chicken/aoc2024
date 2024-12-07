@@ -19,3 +19,11 @@ document.body.innerText.trim().split("\n").map(l=>l.trim().split("")).reduce((ra
 document.body.innerText.trim().split("\n\n").map((h,i)=>h.trim().split("\n").map(l => l.trim().split(i?",":"|"))).map((h,i,hs) =>!i?0:h.reduce((ha,ps)=>ha+(ps.every((p,pi)=>hs[0].filter(r=>r[1]==p).map(r=>r[0]).filter(d=>ps.includes(d)).every(d => ps.slice(0,pi).includes(d)))?parseInt(ps[Math.floor(ps.length/2)]):0),0))[1]
 // 5.2
 document.body.innerText.trim().split("\n\n").map((h,i)=>h.trim().split("\n").map(l=>l.trim().split(i?",":"|"))).map((h,i,hs)=>!i?0:h.filter(ps=>!ps.every((p,pi)=>hs[0].filter(r=>r[1]==p).map(r=>r[0]).filter(d=>ps.includes(d)).every(d => ps.slice(0,pi).includes(d)))).map(ps=>parseInt(ps.sort((a,b)=>hs[0].find(r=>r[0]==a&&r[1]==b)?-1:1)[Math.floor(ps.length/2)])).reduce((a,c)=>a+c,0))[1]
+// 6.1
+// while loop skill issue
+// 6.2
+// while loop skill issue
+// 7.1
+document.body.innerText.trim().split("\n").map(l=>l.trim().split(": ").map((v, i) =>!i?Number(v):v.split(" ").map(Number))).reduce((a,[t,ns])=>a+(Array(2**(ns.length-1)).fill().some((_,i)=>Array(ns.length-1).fill().map((_,j)=>Math.floor(i/(2**j))%2).reduce((ca,o,j)=>o?ca+ns[j+1]:ca*ns[j+1],ns[0])===t)&&t),0)
+// 7.2
+document.body.innerText.trim().split("\n").map(l=>l.trim().split(": ").map((v, i) =>!i?Number(v):v.split(" ").map(Number))).reduce((a,[t,ns])=>a+(Array(3**(ns.length-1)).fill().some((_,i)=>Array(ns.length-1).fill().map((_,j)=>Math.floor(i/(3**j))%3).reduce((ca,o,j)=>o===0?ca+ns[j+1]:(o===1?ca*ns[j+1]:parseInt(ca.toString()+ns[j+1].toString())),ns[0])===t)&&t),0) 

@@ -37,21 +37,14 @@ export function sortAsc<TEl = number>(arr: TEl[], extract: (el: TEl) => number =
 export function sortDesc<TEl = number>(arr: TEl[], extract: (el: TEl) => number = (el: TEl) => el as number) {
     return arr.sort((a, b) => extract(b) - extract(a));
 }
-export function* pairs<TEl>(arr: TEl[]) {
-    for (let i = 0; i < arr.length; i++) {
-        for (let j = i + 1; j < arr.length; j++) {
-            yield [arr[i], arr[j]] as [TEl, TEl];
-        }
-    }
-}
 
-export function* windows<TEl>(length: number, arr: TEl[]) {
-    for (let i = 0; i < arr.length - length + 1; i++) {
+export function* windows<TEl>(arr: TEl[], length: number, step = 1) {
+    for (let i = 0; i < arr.length - length + 1; i += step) {
         yield arr.slice(i, i + length);
     }
 }
 
-export function* permutations<TEl>(arr: TEl[], length = arr.length): Generator<TEl[]> {
+export function* permutations<TEl>(arr: TEl[], length: number): Generator<TEl[]> {
     if (length === 1) {
         yield* arr.map((el) => [el]);
         return;
@@ -64,7 +57,7 @@ export function* permutations<TEl>(arr: TEl[], length = arr.length): Generator<T
     }
 }
 
-export function* combinations<TEl>(arr: TEl[], length = arr.length): Generator<TEl[]> {
+export function* combinations<TEl>(arr: TEl[], length: number): Generator<TEl[]> {
     if (length === 1) {
         yield* arr.map((el) => [el]);
         return;
@@ -79,4 +72,8 @@ export function* combinations<TEl>(arr: TEl[], length = arr.length): Generator<T
             yield [el, ...comb];
         }
     }
+}
+
+export function pairs<TEl>(arr: TEl[]) {
+    return combinations(arr, 2);
 }

@@ -1,3 +1,5 @@
+import { Cell } from "./Cell.ts";
+
 export type CoordTuple = [number, number];
 export type CoordString = `${number},${number}`;
 
@@ -13,15 +15,19 @@ export class Point2D {
 
     constructor(x: number, y: number);
     constructor(point: Point2D);
+    constructor(cell: Cell);
     constructor(tuple: CoordTuple);
     constructor(key: CoordString);
-    constructor(arg1: number | Point2D | CoordTuple | CoordString, arg2?: number) {
+    constructor(arg1: number | Point2D | Cell | CoordTuple | CoordString, arg2?: number) {
         if (typeof arg1 === "number") {
             this.x = arg1;
             this.y = arg2!;
         } else if (arg1 instanceof Point2D) {
             this.x = arg1.x;
             this.y = arg1.y;
+        } else if (arg1 instanceof Cell) {
+            this.x = arg1.c;
+            this.y = arg1.r;
         } else if (typeof arg1 == "string") {
             const [x, y] = arg1.split(",").map(Number);
             this.x = x;
@@ -89,6 +95,11 @@ export class Point2D {
     mul(arg1: number | Point2DEquivalent): Point2D | number {
         if (typeof arg1 === "number") return this.scale(arg1);
         else return this.product(arg1);
+    }
+
+    mod(other: Point2DEquivalent) {
+        const otherPoint = Point2D.resolveEquivalent(other);
+        return new Point2D((this.x + otherPoint.x) % otherPoint.x, (this.y + otherPoint.y) % otherPoint.y);
     }
 
     equals(point: Point2DEquivalent) {

@@ -4,8 +4,14 @@ import { Cell, type CellEquivalent } from "./Cell.ts";
 export class Grid<TValue> {
     public rows: TValue[][];
 
-    constructor(initialGrid: TValue[][]) {
-        this.rows = initialGrid;
+    constructor(initialValues: TValue[][]);
+    constructor(height: number, width: number, initialValue?: TValue);
+    constructor(arg1: TValue[][] | number, arg2?: number, arg3?: TValue) {
+        if (typeof arg1 === "number") {
+            this.rows = new Array(arg1).fill(null).map(() => new Array(arg2!).fill(structuredClone(arg3)));
+        } else {
+            this.rows = arg1;
+        }
     }
 
     get height() {
@@ -50,6 +56,19 @@ export class Grid<TValue> {
         }
     }
 
+    getQuadrant(cell: Cell) {
+        const midR = this.height / 2 - 0.5;
+        const midC = this.width / 2 - 0.5;
+        if (cell.r < midR) {
+            if (cell.c < midC) return Cell.UP_LEFT;
+            else if (cell.c > midC) return Cell.UP_RIGHT;
+        } else if (cell.r > midR) {
+            if (cell.c < midC) return Cell.DOWN_LEFT;
+            else if (cell.c > midC) return Cell.DOWN_RIGHT;
+        }
+        return null;
+    }
+
     *[Symbol.iterator]() {
         for (let r = 0; r < this.height; r++) {
             for (let c = 0; c < this.width; c++) {
@@ -72,7 +91,9 @@ export class Grid<TValue> {
         return true;
     }
 
-    map<TMappedValue>(mapFn: (cell: Cell, value: TValue, originalGrid: Grid<TValue>) => TMappedValue): Grid<TMappedValue> {
+    map<TMappedValue>(
+        mapFn: (cell: Cell, value: TValue, originalGrid: Grid<TValue>) => TMappedValue,
+    ): Grid<TMappedValue> {
         return new Grid(this.rows.map((row, r) => row.map((v, c) => mapFn(new Cell(r, c), v, this))));
     }
 

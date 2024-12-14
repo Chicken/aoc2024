@@ -1,5 +1,5 @@
 import type { Grid } from "./Grid.ts";
-import type { CoordString, CoordTuple } from "./Point.ts";
+import { CoordString, CoordTuple, Point2D } from "./Point.ts";
 
 export type CellEquivalent = Cell | CoordTuple;
 
@@ -14,15 +14,19 @@ export class Cell {
 
     constructor(r: number, c: number);
     constructor(cell: Cell);
+    constructor(point: Point2D);
     constructor(tuple: CoordTuple);
     constructor(key: CoordString);
-    constructor(arg1: number | Cell | CoordTuple | CoordString, arg2?: number) {
+    constructor(arg1: number | Cell | Point2D | CoordTuple | CoordString, arg2?: number) {
         if (typeof arg1 === "number") {
             this.r = arg1;
             this.c = arg2!;
         } else if (arg1 instanceof Cell) {
             this.r = arg1.r;
             this.c = arg1.c;
+        } else if (arg1 instanceof Point2D) {
+            this.r = arg1.y;
+            this.c = arg1.x;
         } else if (typeof arg1 == "string") {
             const [r, c] = arg1.split(",").map(Number);
             this.r = r;
@@ -94,6 +98,11 @@ export class Cell {
     mul(arg1: number | CellEquivalent): Cell | number {
         if (typeof arg1 === "number") return this.scale(arg1);
         else return this.product(arg1);
+    }
+
+    mod(other: CellEquivalent) {
+        const otherCell = Cell.resolveEquivalent(other);
+        return new Cell((this.r + otherCell.r) % otherCell.r, (this.c + otherCell.c) % otherCell.c);
     }
 
     equals(cell: CellEquivalent) {

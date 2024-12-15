@@ -99,7 +99,10 @@ export class Point2D {
 
     mod(other: Point2DEquivalent) {
         const otherPoint = Point2D.resolveEquivalent(other);
-        return new Point2D((this.x + otherPoint.x) % otherPoint.x, (this.y + otherPoint.y) % otherPoint.y);
+        return new Point2D(
+            (this.x % otherPoint.x + otherPoint.x) % otherPoint.x,
+            (this.y % otherPoint.y + otherPoint.y) % otherPoint.y,
+        );
     }
 
     equals(point: Point2DEquivalent) {

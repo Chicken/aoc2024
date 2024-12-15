@@ -18,10 +18,8 @@ for (const line of input) {
     });
 }
 
-for (let s = 0; s < simLength; s++) {
-    for (const robot of robots) {
-        robot.pos = robot.pos.add(robot.vel).mod(dim);
-    }
+for (const robot of robots) {
+    robot.pos = robot.pos.add(robot.vel.mul(simLength)).mod(dim);
 }
 
 const quads = new CellMap<number>();

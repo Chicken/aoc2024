@@ -4,11 +4,14 @@ import { Cell, type CellEquivalent } from "./Cell.ts";
 export class Grid<TValue> {
     public rows: TValue[][];
 
+    constructor(string: TValue extends string ? TValue : never);
     constructor(initialValues: TValue[][]);
     constructor(height: number, width: number, initialValue?: TValue);
-    constructor(arg1: TValue[][] | number, arg2?: number, arg3?: TValue) {
+    constructor(arg1: TValue[][] | string | number, arg2?: number, arg3?: TValue) {
         if (typeof arg1 === "number") {
             this.rows = new Array(arg1).fill(null).map(() => new Array(arg2!).fill(structuredClone(arg3)));
+        } else if (typeof arg1 === "string") {
+            this.rows = arg1.split("\n").map((l) => l.split("")) as TValue[][];
         } else {
             this.rows = arg1;
         }
@@ -42,8 +45,24 @@ export class Grid<TValue> {
         }
     }
 
+    getRow(r: number) {
+        return this.rows[r];
+    }
+
+    getColumn(c: number) {
+        return this.rows.map((row) => row[c]);
+    }
+
     toString(transform: (v: TValue) => string = (v) => String(v)) {
         return this.rows.map((row) => row.map(transform).join("")).join("\n");
+    }
+
+    indexOf(value: TValue) {
+        for (let r = 0; r < this.height; r++) {
+            const c = this.rows[r].indexOf(value);
+            if (c !== -1) return new Cell(r, c);
+        }
+        return null;
     }
 
     has(r: number, c: number): boolean;

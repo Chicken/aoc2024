@@ -10,6 +10,14 @@ class EncodedSet<TVal, TKey extends string> extends Set<TKey> {
         return key as unknown as TVal;
     }
 
+    copy(): EncodedSet<TVal, TKey> {
+        const copy = new EncodedSet<TVal, TKey>();
+        for (const key of this) {
+            copy.add(key);
+        }
+        return copy;
+    }
+
     // @ts-expect-error - ts override is bad
     override has(val: TVal): boolean {
         return super.has(this.encode(val));

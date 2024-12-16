@@ -25,13 +25,13 @@ export class Grid<TValue> {
         return this.rows[0]?.length ?? 0;
     }
 
-    get(r: number, c: number): TValue;
-    get(cell: CellEquivalent): TValue;
-    get(arg1: number | CellEquivalent, arg2?: number): TValue {
+    get(r: number, c: number): TValue | null;
+    get(cell: CellEquivalent): TValue | null;
+    get(arg1: number | CellEquivalent, arg2?: number): TValue | null {
         if (typeof arg1 === "number") return this.rows[arg1][arg2!];
         else {
             const cell = Cell.resolveEquivalent(arg1);
-            return this.rows[cell.r][cell.c];
+            return this.rows[cell.r]?.[cell.c] ?? null;
         }
     }
 

@@ -17,9 +17,7 @@ const queue: [Cell, Cell, CellSet, boolean, number][] = [[start, Cell.RIGHT, sta
 let bestScore = null;
 const bestPaths: CellSet[] = [];
 
-let i = 0;
 while (queue.length > 0) {
-    i++;
     const [c, dir, path, turned, points] = queue.shift()!;
     if (bestScore && points > bestScore) break;
     const k = c.toString() + "," + dir.toString();
@@ -52,6 +50,4 @@ for (const cs of bestPaths) {
     for (const c of cs) bestPathCells.add(c);
 }
 
-console.log(grid.map((cell, val) => bestPathCells.has(cell) ? "o" : val).toString());
-console.log(i);
 console.log(bestPathCells.size);

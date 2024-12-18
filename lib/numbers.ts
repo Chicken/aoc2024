@@ -1,11 +1,12 @@
+export function mod(a: number, b: number) {
+    return ((a % b) + b) % b;
+}
+
 /**
- * Divides `a` by `b` and returns the quotient and remainder
- * @param a
- * @param b
  * @returns [quotient, remainder]
  */
 export function divmod(a: number, b: number): [number, number] {
-    return [Math.floor(a / b), a % b];
+    return [Math.floor(a / b), mod(a, b)];
 }
 
 export function gcd(a: number, b: number): number {

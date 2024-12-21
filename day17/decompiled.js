@@ -1,3 +1,4 @@
+// deno-lint-ignore-file
 let a = 64196994n;
 let b = 0n;
 let c = 0n;

@@ -1,16 +1,16 @@
-export function sum(arr: number[]) {
-    return arr.reduce((acc, val) => acc + val, 0);
+export function sum(arr: Iterable<number>) {
+    return [...arr].reduce((acc, val) => acc + val, 0);
 }
 
-export function product(arr: number[]) {
-    return arr.reduce((acc, val) => acc * val, 1);
+export function product(arr: Iterable<number>) {
+    return [...arr].reduce((acc, val) => acc * val, 1);
 }
 
-export function max(arr: number[]) {
+export function max(arr: Iterable<number>) {
     return Math.max(...arr);
 }
 
-export function min(arr: number[]) {
+export function min(arr: Iterable<number>) {
     return Math.min(...arr);
 }
 
@@ -18,7 +18,7 @@ export function freq<TEl>(arr: TEl[]) {
     return arr.reduce((acc, val) => acc.set(val, 1 + (acc.get(val) || 0)), new Map<TEl, number>());
 }
 
-export function dedup(arr: number[]) {
+export function dedup(arr: Iterable<number>) {
     return [...new Set(arr)];
 }
 

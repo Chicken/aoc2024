@@ -63,7 +63,7 @@ for (const move of moves) {
                     queue.enqueue(cell.add(Cell.UP_LEFT));
                 }
             }
-            const cellVals = affectedCells.map((cell) => grid.get(cell));
+            const cellVals = affectedCells.map((cell) => grid.get(cell)!);
             if (cellVals.includes("#")) break;
             const newPos = affectedCells.map((cell) => cell.add(Cell.UP));
             for (const cell of affectedCells) grid.set(cell, ".");
@@ -92,7 +92,7 @@ for (const move of moves) {
                     queue.enqueue(cell.add(Cell.DOWN_LEFT));
                 }
             }
-            const cellVals = affectedCells.map((cell) => grid.get(cell));
+            const cellVals = affectedCells.map((cell) => grid.get(cell)!);
             if (cellVals.includes("#")) break;
             for (const cell of affectedCells) grid.set(cell, ".");
             const newPos = affectedCells.map((cell) => cell.add(Cell.DOWN));

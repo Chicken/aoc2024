@@ -18,7 +18,7 @@ for (const move of moves) {
             if (empty === -1) break;
             if (row.slice(empty, robot.c).includes("#")) break;
             for (let c = empty; c < robot.c; c++) {
-                grid.set(robot.r, c, grid.get(robot.r, c + 1));
+                grid.set(robot.r, c, grid.get(robot.r, c + 1)!);
             }
             robot = robot.add(Cell.LEFT);
             break;
@@ -30,7 +30,7 @@ for (const move of moves) {
             if (empty === -1) break;
             if (row.slice(robot.c, empty).includes("#")) break;
             for (let c = empty; c > robot.c; c--) {
-                grid.set(robot.r, c, grid.get(robot.r, c - 1));
+                grid.set(robot.r, c, grid.get(robot.r, c - 1)!);
             }
             robot = robot.add(Cell.RIGHT);
             break;
@@ -42,7 +42,7 @@ for (const move of moves) {
             if (empty === -1) break;
             if (col.slice(empty, robot.r).includes("#")) break;
             for (let r = empty; r < robot.r; r++) {
-                grid.set(r, robot.c, grid.get(r + 1, robot.c));
+                grid.set(r, robot.c, grid.get(r + 1, robot.c)!);
             }
             robot = robot.add(Cell.UP);
             break;
@@ -54,7 +54,7 @@ for (const move of moves) {
             if (empty === -1) break;
             if (col.slice(robot.r, empty).includes("#")) break;
             for (let r = empty; r > robot.r; r--) {
-                grid.set(r, robot.c, grid.get(r - 1, robot.c));
+                grid.set(r, robot.c, grid.get(r - 1, robot.c)!);
             }
             robot = robot.add(Cell.DOWN);
             break;

@@ -20,7 +20,7 @@ for (const [cell, value] of grid) {
             continue;
         }
         for (const neighbour of grid.neighbours(current)) {
-            if (grid.get(neighbour) === grid.get(current) + 1) {
+            if (grid.get(neighbour) === grid.get(current)! + 1) {
                 q.enqueue(neighbour);
             }
         }

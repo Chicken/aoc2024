@@ -15,13 +15,17 @@ const sets = new Set<string>();
 const seen = new Set<string>();
 for (const [node, edges] of Object.entries(nodes)) {
     if (seen.has(node)) continue;
-    for (let i = 2; i < edges.length; i++) {
+    for (let i = edges.length - 1; i >= 2; i--) {
+        let found = false;
         for (const group of combinations(edges, i)) {
             if (group.every((n1) => group.every((n2) => n1 === n2 || nodes[n1].includes(n2)))) {
                 sets.add([node, ...group].sort().join(","));
                 for (const n of [node, ...group]) seen.add(n);
+                found = true;
+                break;
             }
         }
+        if (found) break;
     }
 }
 
